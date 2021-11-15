@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const path = require("path");
-const rootDir = require("./path");
-const User = require("../models/user");
+const rootDir = require("path");
+const User = require("./models/user");
 require("dotenv").config({ path: path.join(rootDir, "secure", ".env") });
 
 const createToken = (id) => {

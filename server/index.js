@@ -27,7 +27,10 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(
 	cors({
-		origin: ["http://localhost:3000", "https://snippetmanager.netlify.app"],
+		origin: [
+			"http://localhost:3000",
+			"https://heather-benton-fullstack-banking-app.netlify.app",
+		],
 		methods: ["GET", "POST"],
 		credentials: false,
 	})
@@ -39,7 +42,7 @@ app.use(cookieParser());
 // view engine
 app.set("view engine", "ejs");
 
-// connect heroku to mongo string
+// connect to mongo string
 mongoose
 	.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,

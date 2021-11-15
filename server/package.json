@@ -1,7 +1,6 @@
 {
-  "name": "bank-eleven-eleven",
+  "name": "og-react-bank",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -18,11 +17,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.4",
     "mongoose": "^5.13.13",
+    "netlify-lambda": "^2.0.15",
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "netlify-cli": "^3.10.0"
   },
   "author": "heather.leigh4@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "description": ""
 }

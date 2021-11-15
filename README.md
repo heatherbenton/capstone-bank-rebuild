@@ -12,6 +12,8 @@ Git Clone, navigate to "client" folder, npm init, install the dependencies, and 
 <h2>Screenshot</h2> <br>
 It took me several iterations to complete this in a working fashion. Unfortunately, I had to let go of the first version with the lovely animated gradient background, and something broke, and after a full weekend, I could not get it up and running again. The original, showing some functionality: <br><br>
 Quick YouTube screen capture showing some functionality: https://youtu.be/jh2oqB8DBAU
+<br><br>
+
 
 <h2>Technology Used</h2> <br>
 The MERN stack, as well as Formik, Zustand, TailwindsCSS, Netlify, and AWS Lambda.

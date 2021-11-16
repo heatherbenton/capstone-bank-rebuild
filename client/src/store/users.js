@@ -15,9 +15,11 @@ const changeBalanceVoid = (users, userEmail, amount, isWithdraw) => {
 
 const useUsers = create((set) => ({
 	users: [],
+	user: null,
 	loadUsers: (users) => set((state) => ({ users: users })),
-	addUser: (user) =>
-		set((state) => ({ users: [...state.users, { ...user, balance: 0 }] })),
+	/*addUser: (user) =>
+		set((state) => ({ users: [...state.users, { ...user, balance: 0 }] })),*/
+	addUser: (user) => set(() => ({ user })),
 	changeBalance: (userEmail, amount, isWithdraw) =>
 		set((state) => ({
 			users: changeBalanceVoid(state.users, userEmail, amount, isWithdraw),

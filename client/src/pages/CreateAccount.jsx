@@ -11,21 +11,35 @@ export default function CreateAccount({ setPopUp }) {
 			email: "",
 			password: "",
 		},
-		onSubmit: (values) => {
-			addUser({
-				name: values.name,
-				email: values.email,
-				password: values.password,
-			});
-			setPopUp({
-				title: "Success!",
-				message: "Would you like to add an additional account?",
-			});
-			formik.setValues({
-				email: "",
-				name: "",
-				password: "",
-			});
+		onSubmit: async (values) => {
+			try {
+				const { name, email, password } = values;
+				console.log("vals==>>", values);
+				const user = await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
+					method: "post",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ name, email, password }),
+				});
+				await user.json();
+				addUser({
+					name,
+					email,
+					password,
+				});
+				setPopUp({
+					title: "Success!",
+					message: "Would you like to add an additional account?",
+				});
+				formik.setValues({
+					email: "",
+					name: "",
+					password: "",
+				});
+			} catch (err) {
+				console.log('an errr==>>', err);
+			}
 		},
 	});
 

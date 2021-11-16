@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Withdraw from "./pages/Withdraw";
 import Deposit from "./pages/Deposit";
 import CreateAccount from "./pages/CreateAccount";
+import Login from "./pages/Login";
 import AllData from "./pages/AllData";
 
 import PopUp from "./components/PopUp";
@@ -54,6 +55,7 @@ function App() {
 					<Route path="/register">
 						<CreateAccount setPopUp={setPopUp} />
 					</Route>
+					<Route path="/login" component={Login} />
 					<Route path="/all-data">
 						<AllData />
 					</Route>

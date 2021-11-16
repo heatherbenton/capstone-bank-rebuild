@@ -16,7 +16,7 @@ Quick YouTube screen capture showing some functionality: https://youtu.be/jh2oqB
 
 
 <h2>Technology Used</h2> <br>
-The MERN stack, as well as Formik, Zustand, TailwindsCSS, Netlify, and AWS Lambda.
+The MERN stack, as well as Formik, Zustand, TailwindsCSS, Netlify, and Heroku.
 
 <h2>Features</h2> <br>
 Responsive navbar, and functioning forms such as create account, login, and deposit. I would like to add/improve more authentication and security, as well as go much farther with the front-end UI. Getting the bare-bones working was a huge challenge, so I ran out of time with that aspect.

@@ -3,10 +3,6 @@ const User = require("../models/user");
 //const handleErrors = require("../to-be-deleted");
 const { createToken } = require("../middlewares/jwt");
 
-// we've got a fresh new account signup!
-const signup_get = (req, res) => {
-	res.status(200).json({ message: "Sign up!" });
-};
 
 const signup_post = async (req, res) => {
 	const { email, password, name } = req.body;
@@ -21,7 +17,7 @@ const signup_post = async (req, res) => {
 		const token = await createToken(user._id);
 
 		// final response to front end
-		res.status(200).json(user);
+		res.status(200).json(token);
 	} catch (err) {
 // 		const errors = handleErrors(err);
 		console.log("backend", err);
@@ -29,11 +25,6 @@ const signup_post = async (req, res) => {
 			.status(400)
 			.json({ message: "You may have already signed up with us!" });
 	}
-};
-
-// user login
-const login_get = (req, res) => {
-	res.status(200).json({ messaage: "login here" });
 };
 
 const login_post = async (req, res) => {
@@ -51,7 +42,7 @@ const login_post = async (req, res) => {
 		const token = await createToken(user["_id"]);
 
 		// final response to front end
-		res.status(200).json(user);
+		res.status(200).json(token);
 	} catch (err) {
 		// const errors = handleErrors(err);
 		res.status(400).json({ errors: err });
@@ -65,9 +56,7 @@ const logout_get = (req, res) => {
 };
 
 module.exports = {
-	signup_get,
 	signup_post,
-	login_get,
 	login_post,
 	logout_get,
 };

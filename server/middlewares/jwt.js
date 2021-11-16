@@ -7,10 +7,9 @@ const createToken = (id) => {
 
 const verifyUser = (req, res, next) => {
 	const token = req.headers.jwt;
-
 	if (!token) {
 		req.isAuth = false;
-		next();
+		res.send('Missng token in headers');
 	} else {
 		jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
 			if (err) {

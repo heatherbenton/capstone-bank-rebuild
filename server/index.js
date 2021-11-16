@@ -6,7 +6,7 @@ const cors = require("cors");
 // route imports
 const authRouter = require("./routes/auth");
 const homeRouter = require("./routes/home");
-//const userProfileRouter = require("./routes/userProfile");
+const userProfileRouter = require("./routes/userProfile");
 const accountRouter = require("./routes/account");
 
 // setup express server
@@ -42,7 +42,7 @@ mongoose
 
 // routes
 app.use(authRouter);
-//app.use(userProfileRouter);
+app.use(userProfileRouter);
 app.use(accountRouter);
 app.use(homeRouter);
 

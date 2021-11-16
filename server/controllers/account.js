@@ -1,22 +1,24 @@
 // import user model
 const User = require("../models/user");
+const Account = require("../models/account");
 
 // for opening account
 const account_post = async (req, res) => {
-	const { acctName, balance, id } = req.body;
+	const { acctName, balance } = req.body;
 
 	try {
-		const user = await User.findById(id);
-		const newAccount = { acctName, balance };
+		/// const user = await User.findById(id);
+		const bankAccount = await Account.create({ acctName, balance, userId: req.userInfo.id });
+		/*const newAccount = { acctName, balance };
 		user.accounts.push(newAccount);
 		user["totalBalance"] = parseInt(user["totalBalance"]) + parseInt(balance);
 		user.markModified("accounts");
 		user.markModified("totalBalance");
 
 		// async
-		const result = await user.save();
+		const result = await user.save();*/
 
-		res.status(200).json(result);
+		res.status(200).json(bankAccount);
 	} catch (err) {
 		res.status(400).json({ message: err });
 	}
@@ -143,9 +145,34 @@ const account_close = async (req, res) => {
 	}
 };
 
+// close account, not a fan of the bank
+const account_get_all = async (req, res) => {
+	try {
+		const accountsOpened = await Account.find({ userId: req.userInfo._id });
+		res.send( accountsOpened );
+	} catch (err) {
+		console.log("errrrr==>>", err);
+		res.status(400).json({ message: err });
+	}
+};
+
+const account_get_count = async (req, res) => {
+	try {
+		const accountsOpened = await Account.countDocuments({
+			userId: req.userInfo._id,
+		});
+		res.send({ accountsOpened });
+	} catch (err) {
+		console.log("errrrr==>>", err);
+		res.status(400).json({ message: err });
+	}
+};
+
 module.exports = {
 	account_post,
 	account_deposit,
 	account_withdraw,
 	account_close,
+	account_get_all,
+	account_get_count
 };

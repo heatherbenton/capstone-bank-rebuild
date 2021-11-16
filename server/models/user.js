@@ -21,7 +21,7 @@ const userSchema = new Schema(
 	{
 		email: emailReq,
 		password: passwordReq,
-		accounts: [accountSchema],
+		// accounts: [accountSchema],
 		name: {
 			type: String,
 			required: true,

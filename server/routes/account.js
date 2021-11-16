@@ -1,19 +1,26 @@
 const { Router } = require("express");
+const { verifyUser } = require('../middlewares/jwt');
 const {
 	account_post,
 	account_deposit,
 	account_withdraw,
 	account_close,
+	account_get_all,
+	account_get_count
 } = require("../controllers/account");
 
 const router = Router();
 
-router.post("/account/open", account_post);
+router.get("/account/all", verifyUser, account_get_all);
 
-router.post("/account/deposit", account_deposit);
+router.get("/account/count", verifyUser, account_get_count);
 
-router.post("/account/withdraw", account_withdraw);
+router.post("/account/open", verifyUser, account_post);
 
-router.post("/account/close", account_close);
+router.post("/account/deposit", verifyUser, account_deposit);
+
+router.post("/account/withdraw", verifyUser, account_withdraw);
+
+router.post("/account/close", verifyUser, account_close);
 
 module.exports = router;

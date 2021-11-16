@@ -5,7 +5,7 @@ const historySchema = new Schema(
 			type: Number,
 			required: true,
 		},
-		type: {
+		transactionType: {
 			type: String,
 			required: true
 		}

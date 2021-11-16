@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 const historySchema = require("../models/history");
 
 const accountSchema = new Schema(
@@ -11,9 +11,19 @@ const accountSchema = new Schema(
 			type: Number,
 			required: true,
 		},
+		acctNo: {
+			default: Math.floor(1000000000 + Math.random() * 9000000000),
+			type: Number
+		},
 		history: [historySchema],
+		userId: {
+			type: Types.ObjectId,
+			ref: "user",
+		},
 	},
 	{ timestamps: true }
 );
 
-module.exports = accountSchema;
+const Account = model("Account", accountSchema);
+
+module.exports = Account;

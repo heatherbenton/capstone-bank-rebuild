@@ -7,8 +7,9 @@ import Home from "./pages/Home";
 import Withdraw from "./pages/Withdraw";
 import Deposit from "./pages/Deposit";
 import CreateAccount from "./pages/CreateAccount";
+import CreateUser from "./pages/CreateUser";
 import Login from "./pages/Login";
-import AllData from "./pages/AllData";
+import AllData from "./pages/Profile";
 
 import PopUp from "./components/PopUp";
 
@@ -53,10 +54,13 @@ function App() {
 						<Deposit />
 					</Route>
 					<Route path="/register">
+						<CreateUser setPopUp={setPopUp} />
+					</Route>
+					<Route path="/new-account">
 						<CreateAccount setPopUp={setPopUp} />
 					</Route>
 					<Route path="/login" component={Login} />
-					<Route path="/all-data">
+					<Route path="/profile">
 						<AllData />
 					</Route>
 					<Route path="/">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import useUsers from "../store/users";
 
@@ -9,31 +9,37 @@ export default function CreateAccount({ setPopUp }) {
 
 	const formik = useFormik({
 		initialValues: {
-			acctName: "",
-			balance: "",
+			name: "",
+			email: "",
+			password: "",
 		},
 		onSubmit: async (values) => {
 			try {
-				const { acctName, balance } = values;
+				const { name, email, password } = values;
 				console.log("vals==>>", values);
-				const user = await fetch(`${process.env.REACT_APP_API_URL}/account/open`, {
+				const user = await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
 					method: "post",
 					headers: {
 						"Content-Type": "application/json",
-						jwt: localStorage.getItem('token')
 					},
-					body: JSON.stringify({ acctName, balance }),
+					body: JSON.stringify({ name, email, password }),
 				});
 				await user.json();
 				addUser({
-					acctName,
-					balance
+					name,
+					email,
+					password,
+				});
+				setPopUp({
+					title: "Success!",
+					message: "Would you like to add an additional account?",
 				});
 				formik.setValues({
-					acctName: "",
-					balance: "",
+					email: "",
+					name: "",
+					password: "",
 				});
-				history.push('/deposit');
+				history.push("/account");
 			} catch (err) {
 				console.log("an errr==>>", err);
 			}
@@ -43,7 +49,8 @@ export default function CreateAccount({ setPopUp }) {
 	const [disabled, setDisabled] = useState(true);
 
 	useEffect(() => {
-		if (formik.values.acctName && formik.values.balance) setDisabled(false);
+		if (formik.values.name && formik.values.name && formik.values.password)
+			setDisabled(false);
 		else setDisabled(true);
 	}, [formik.values]);
 
@@ -54,27 +61,37 @@ export default function CreateAccount({ setPopUp }) {
 				className="flex flex-col space-y-1 bg-orange-100 rounded-lg p-6 m-12"
 			>
 				<h3 className=" flex flex-col space-y-1 bg-orange-100 rounded-lg p-6text-lg font-semibold">
-					Open a New Bank Account
+					Create a New User Account
 				</h3>
 
 				<div className="flex flex-col">
-					<label htmlFor="acctName">Account Name</label>
+					<label htmlFor="name">Name</label>
 					<input
 						type="text"
-						id="acctName"
-						name="acctName"
+						id="name"
+						name="name"
 						onChange={formik.handleChange}
-						value={formik.values.acctName}
+						value={formik.values.name}
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label htmlFor="balance">Account Balance</label>
+					<label htmlFor="email">Email</label>
 					<input
-						type="number"
-						id="balance"
-						name="balance"
+						type="email"
+						id="email"
+						name="email"
 						onChange={formik.handleChange}
-						value={formik.values.balance}
+						value={formik.values.email}
+					/>
+				</div>
+				<div className="flex flex-col">
+					<label htmlFor="password">Password</label>
+					<input
+						type="password"
+						id="password"
+						name="password"
+						onChange={formik.handleChange}
+						value={formik.values.password}
 					/>
 				</div>
 				<button
@@ -84,7 +101,7 @@ export default function CreateAccount({ setPopUp }) {
 						disabled && "text-gray-50"
 					}`}
 				>
-					Create Account
+					Sign up!
 				</button>
 			</form>
 		</div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import useUsers from "../store/users";
 
 export default function CreateAccount({ setPopUp }) {
@@ -16,29 +16,40 @@ export default function CreateAccount({ setPopUp }) {
 			try {
 				const { email, password } = values;
 				console.log("vals==>>", values);
-				const user = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+				let token = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
 					method: "post",
 					headers: {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({ email, password }),
 				});
-				await user.json();
+				token = await token.json();
+				localStorage.setItem("token", token);
 				addUser({
 					email,
 					password,
 				});
-				/*setPopUp({
-					title: "Success!",
-					message: "Would you like to add an additional account?",
-				});*/
 				formik.setValues({
 					email: "",
 					password: "",
 				});
-				history.push('/deposit')
+				console.log("tok==>>>", token);
+				let userAccounts = await fetch(
+					`${process.env.REACT_APP_API_URL}/account/count`,
+					{
+						headers: {
+							jwt: token// `Bearer ${token}`,
+						},
+					}
+				);
+				userAccounts = await userAccounts.json();
+				if (userAccounts.accountsOpened) {
+					history.push("/deposit");
+				} else {
+					history.push("/account");
+				}
 			} catch (err) {
-				console.log('an errr==>>', err);
+				console.log("an errr==>>", err);
 			}
 		},
 	});
@@ -46,8 +57,7 @@ export default function CreateAccount({ setPopUp }) {
 	const [disabled, setDisabled] = useState(true);
 
 	useEffect(() => {
-		if (formik.values.email && formik.values.password)
-			setDisabled(false);
+		if (formik.values.email && formik.values.password) setDisabled(false);
 		else setDisabled(true);
 	}, [formik.values]);
 

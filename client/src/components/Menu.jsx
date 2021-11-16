@@ -8,7 +8,9 @@ export default function Menu() {
 
 	return (
 		<navbar>
-			<h2 className="text-left text-cyan-700 p-2">Third Coast Bank</h2>
+			<h2 className="text-left font-normal text-cyan-700 p-2">
+				Third Coast Bank
+			</h2>
 			<h2 className="text-right text-cyan-700 p-2">{user?.name}</h2>
 			<div className="flex flex-row items-stretch justify-around bg-cyan-700 font-light text-white mb-3">
 				<NavLink
@@ -22,6 +24,24 @@ export default function Menu() {
 
 				{user ? (
 					<>
+						<NavLink
+							to="/new-account"
+							className="p-2 hover:bg-cyan-400"
+							exact
+							activeClassName="bg-cyan-600"
+						>
+							Open New Account
+						</NavLink>
+
+						<NavLink
+							to="/profile"
+							className="p-2 hover:bg-cyan-400"
+							exact
+							activeClassName="bg-cyan-600"
+						>
+							My Profile
+						</NavLink>
+
 						<NavLink
 							to="/deposit"
 							className="p-2 hover:bg-cyan-400"
@@ -38,15 +58,6 @@ export default function Menu() {
 							activeClassName="bg-cyan-600"
 						>
 							Withdraw
-						</NavLink>
-
-						<NavLink
-							to="/all-data"
-							className="p-2 hover:bg-cyan-400"
-							exact
-							activeClassName="bg-cyan-600"
-						>
-							All Data
 						</NavLink>
 					</>
 				) : (

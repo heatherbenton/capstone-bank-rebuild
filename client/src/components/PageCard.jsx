@@ -1,8 +1,30 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useUsers from "../store/users";
 
 export default function PageCard({ action }) {
+	const [accounts, setAccounts] = useState([]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				let accounts = await fetch(
+					`${process.env.REACT_APP_API_URL}/account/all`,
+					{
+						headers: {
+							jwt: localStorage.getItem("token"),
+						},
+					}
+				);
+				accounts = await accounts.json();
+				console.log("user-pp===>>", accounts);
+				setAccounts(accounts);
+			} catch (err) {
+				console.log("an error==>>", err);
+			}
+		})();
+	}, []);
+
 	const users = useUsers((state) => state.users);
 	const changeBalance = useUsers((state) => state.changeBalance);
 
@@ -56,13 +78,18 @@ export default function PageCard({ action }) {
 					{action}
 				</h3>
 				<div className="flex flex-col">
-					<label htmlFor="User Email">User Email</label>
-					<input
-						type="email"
-						id="userEmail"
+					<label htmlFor="acctNo">Acct Number</label>
+					<select
+						type="number"
+						id="acctNo"
 						onChange={formik.handleChange}
-						value={formik.values.userEmail}
-					/>
+						value={formik.values.acctNo}
+					>
+						<option value="">Select Acct No</option>
+						{accounts.map((acct) => (
+							<option value={acct.acctNo}>{acct.acctNo}</option>
+						))}
+					</select>
 				</div>
 
 				<div className="flex flex-col">
